@@ -2,10 +2,12 @@ package com.LucasJ.GameProject.Game;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import com.LucasJ.GameProject.Game.Entity.EntityTags;
 import com.LucasJ.GameProject.Game.Entity.Player.Player;
 import com.LucasJ.GameProject.Math.Vector2D;
 import com.LucasJ.GameProject.Settings.GraphicsSettings;
@@ -38,7 +40,7 @@ public class Game implements Runnable {
 	public Game(Vector2D resolution) {
 		this.resolution = resolution;
 		frame = new JFrame("Game Window");
-		frame.setSize(resolution.toDimension());
+		frame.setSize((int) resolution.x, (int) resolution.y);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         
@@ -49,21 +51,25 @@ public class Game implements Runnable {
         this.setGameState(GameState.GAME);
         
         Player player = new Player(this);
-        player.setHealth(100)
-	        .setMaxHealth(100)
+        player.setHealth(700)
+	        .setMaxHealth(1000)
 	        .setMovementSpeed(10)
-	        .setSize(new Vector2D(50, 25))
+	        .setSize(new Vector2D(30, 30))
 	        .setLocation(new Vector2D(0, 0))
-	        .setColor(Color.BLUE);
+	        .setColor(Color.BLUE)
+	        .addTag(EntityTags.Player);
         
         canvas = new Canvas();
 
         canvas.addKeyListener(inputHandler);
         canvas.addMouseListener(inputHandler);
         canvas.addMouseMotionListener(inputHandler);
+        frame.getContentPane().add(canvas);
+        canvas.setPreferredSize(resolution.toDimension());
+        frame.pack();
         
-        frame.add(canvas);
         frame.setVisible(true);
+        canvas.requestFocus();
 
         canvas.createBufferStrategy(2);
         setBufferStrategy(canvas.getBufferStrategy());

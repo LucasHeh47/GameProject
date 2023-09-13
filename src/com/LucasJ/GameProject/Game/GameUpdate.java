@@ -15,6 +15,7 @@ public class GameUpdate {
 	
 	public void tick(double deltaTime) {
 		DynamicEntity.activeDynamicEntities.forEach(e -> {
+			System.out.println(e.getLocation().toString());
 			e.tick(deltaTime);
 		});
 	}

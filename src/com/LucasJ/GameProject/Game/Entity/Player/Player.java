@@ -1,5 +1,7 @@
 package com.LucasJ.GameProject.Game.Entity.Player;
 
+import java.awt.Graphics;
+
 import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.InputHandler;
 import com.LucasJ.GameProject.Game.Entity.DynamicEntity;
@@ -12,9 +14,13 @@ public class Player extends DynamicEntity{
 	
 	InputHandler input;
 	
+	private PlayerHealth playerHealth;
+	
 	public Player(Game game) {
 		super(game);
 		input = this.game.getInputHandler();
+		playerHealth = new PlayerHealth(game, this);
+		
 	}
 	
 	@Override
@@ -33,6 +39,15 @@ public class Player extends DynamicEntity{
 	    this.move(movement);
 	}
 	
+	@Override
+	public void render(Graphics g) {
+		g.setColor(color);
+		g.fillOval((int)location.x, (int)location.y, 
+				(int)size.x, (int)size.y);
+		
+		playerHealth.render(g);
+	}
+	
 	public boolean isSprinting() {
 		return isSprinting;
 	}
@@ -45,6 +60,10 @@ public class Player extends DynamicEntity{
 	public Player setSprintSpeedMultiplier(double sprintSpeedMultiplier) {
 		this.sprintSpeedMultiplier = sprintSpeedMultiplier;
 		return this;
+	}
+
+	public PlayerHealth getPlayerHealth() {
+		return playerHealth;
 	}
 	
 }

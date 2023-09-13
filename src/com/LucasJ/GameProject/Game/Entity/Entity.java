@@ -62,8 +62,9 @@ public abstract class Entity {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public Entity setColor(Color color) {
 		this.color = color;
+		return this;
 	}
 	
 	

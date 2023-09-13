@@ -35,7 +35,8 @@ public abstract class DynamicEntity extends Entity {
 	}
 	
 	public void move(Vector2D movement) {
-		setLocation(getLocation().add(movement));
+		Vector2D newLocation = getLocation().add(movement).clamp(0, game.resolution.x - size.x, 0, game.resolution.y - size.y);
+		setLocation(newLocation);
 	}
 
 	public int getHealth() {
