@@ -10,10 +10,10 @@ public abstract class Entity {
 	
 	protected Game game;
 	
-	private Vector2D location;
-	private Vector2D size;
+	protected Vector2D location;
+	protected Vector2D size;
 	
-	private Color color;
+	protected Color color;
 	
 	public Entity(Game game, Vector2D location, Vector2D size) { 
 		this.location = location;
