@@ -3,6 +3,7 @@ package com.LucasJ.GameProject.Game.Entity.Player;
 import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.InputHandler;
 import com.LucasJ.GameProject.Game.Entity.DynamicEntity;
+import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Player extends DynamicEntity{
 
@@ -18,12 +19,18 @@ public class Player extends DynamicEntity{
 	
 	@Override
 	public void tick(double deltaTime) {
-		// Subtract because up is closer to 0
-		if(input.W) this.setLocation(getLocation().subtractY(this.getMovementSpeed()*deltaTime));
-		if(input.S) this.setLocation(getLocation().addY(this.getMovementSpeed()*deltaTime));
-		
-		if(input.A) this.setLocation(getLocation().subtractX(this.getMovementSpeed()*deltaTime));
-		if(input.D) this.setLocation(getLocation().addX(this.getMovementSpeed()*deltaTime));
+		Vector2D movement = new Vector2D(0, 0);
+
+	    if(input.W) movement = movement.add(new Vector2D(0, this.getMovementSpeed() * deltaTime * -1));
+	    if(input.S) movement = movement.add(new Vector2D(0, this.getMovementSpeed() * deltaTime));
+	    if(input.A) movement = movement.add(new Vector2D(this.getMovementSpeed() * deltaTime * -1, 0));
+	    if(input.D) movement = movement.add(new Vector2D(this.getMovementSpeed() * deltaTime, 0));
+
+	    if(movement.magnitude() > 0) {
+	        movement = movement.normalize().multiply(this.getMovementSpeed() * deltaTime);
+	    }
+
+	    this.move(movement);
 	}
 	
 	public boolean isSprinting() {
