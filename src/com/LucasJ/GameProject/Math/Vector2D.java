@@ -15,10 +15,22 @@ public class Vector2D {
     public Vector2D add(Vector2D v) {
         return new Vector2D(this.x + v.x, this.y + v.y);
     }
+    public Vector2D addX(double v) {
+        return new Vector2D(this.x + v, this.y);
+    }
+    public Vector2D addY(double v) {
+        return new Vector2D(this.x, this.y + v);
+    }
 
     // Subtract vectors
     public Vector2D subtract(Vector2D v) {
         return new Vector2D(this.x - v.x, this.y - v.y);
+    }
+    public Vector2D subtractX(double v) {
+        return new Vector2D(this.x - v, this.y);
+    }
+    public Vector2D subtractY(double v) {
+        return new Vector2D(this.x, this.y - v);
     }
 
     // Multiply vector by a scalar

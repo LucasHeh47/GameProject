@@ -13,26 +13,41 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private Vector2D mouseLocation;
 	private Game game;
 	
+	public boolean W, A, S, D;
+	
 	public InputHandler(Game game) {
 		this.game = game;
+		this.mouseLocation = new Vector2D(0, 0);
 	}
 	
 	// KEYBOARD EVENTS
 	
     @Override
     public void keyTyped(KeyEvent e) {
+		System.out.println(W + " " + A + " " + S + " " + D);
         // Handle key typed event
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // Handle key pressed event
-        System.out.println("Key pressed: " + KeyEvent.getKeyText(e.getKeyCode()));
+		System.out.println(W + " " + A + " " + S + " " + D);
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W: W = true; break;
+            case KeyEvent.VK_A: A = true; break;
+            case KeyEvent.VK_S: S = true; break;
+            case KeyEvent.VK_D: D = true; break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // Handle key released event
+		System.out.println(W + " " + A + " " + S + " " + D);
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W: W = false; break;
+            case KeyEvent.VK_A: A = false; break;
+            case KeyEvent.VK_S: S = false; break;
+            case KeyEvent.VK_D: D = false; break;
+        }
     }
     
     

@@ -1,21 +1,32 @@
 package com.LucasJ.GameProject.Game.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.LucasJ.GameProject.Game.Game;
+
 public abstract class DynamicEntity extends Entity {
+	
+	public static List<DynamicEntity> activeDynamicEntities = new ArrayList<>();
 
 	private int health;
 	private int maxHealth;
 	
 	private float movementSpeed;
 	
-	public DynamicEntity(int health, int maxHealth, int movementSpeed) {
+	public DynamicEntity(Game game, int health, int maxHealth, int movementSpeed) {
+		super(game);
 		this.health = health;
 		this.maxHealth = maxHealth;
 		this.movementSpeed = movementSpeed;
+		activeDynamicEntities.add(this);
 	}
-	public DynamicEntity() {
+	public DynamicEntity(Game game) {
+		super(game);
 		this.health = 100;
 		this.maxHealth = 100;
 		this.movementSpeed = 5;
+		activeDynamicEntities.add(this);
 	}
 	
 	public void tick(double deltaTime) {

@@ -3,26 +3,32 @@ package com.LucasJ.GameProject.Game.Entity;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class Entity {
+	
+	protected Game game;
 	
 	private Vector2D location;
 	private Vector2D size;
 	
 	private Color color;
 	
-	public Entity(Vector2D location, Vector2D size) { 
+	public Entity(Game game, Vector2D location, Vector2D size) { 
 		this.location = location;
 		this.size = size;
+		this.game = game;
 	}
 	
-	public Entity() { 
+	public Entity(Game game) { 
 		this.location = new Vector2D(0, 0);
 		this.size = new Vector2D(0, 0);
+		this.game = game;
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(color);
 		g.drawRect((int)location.x, (int)location.y, 
 				(int)size.x, (int)size.y);
 	}
@@ -40,6 +46,14 @@ public abstract class Entity {
 	public Entity setSize(Vector2D size) {
 		this.size = size;
 		return this;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	
