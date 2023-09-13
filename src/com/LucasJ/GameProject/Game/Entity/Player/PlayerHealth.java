@@ -42,7 +42,6 @@ public class PlayerHealth {
 				barSize.toDimension().width, 
 				barSize.toDimension().height);
 		g.setColor(Color.RED);
-		System.out.println(mapHealth(player.getHealth()));
 		g.fillRect(
 				barLocation.toDimension().width, 
 				barLocation.toDimension().height, 

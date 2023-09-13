@@ -10,6 +10,8 @@ import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class Entity {
 	
+	public static List<Entity> activeEntities = new ArrayList<>();
+	
 	protected Game game;
 	
 	public List<EntityTags> tags;
@@ -24,6 +26,7 @@ public abstract class Entity {
 		this.location = location;
 		this.size = size;
 		this.game = game;
+		activeEntities.add(this);
 	}
 	
 	public Entity(Game game) { 
@@ -31,6 +34,7 @@ public abstract class Entity {
 		this.location = new Vector2D(0, 0);
 		this.size = new Vector2D(0, 0);
 		this.game = game;
+		activeEntities.add(this);
 	}
 	
 	public void render(Graphics g) {
@@ -66,6 +70,8 @@ public abstract class Entity {
 		this.color = color;
 		return this;
 	}
+
+	public abstract void tick(double deltaTime);
 	
 	
 	

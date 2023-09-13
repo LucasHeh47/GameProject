@@ -3,7 +3,7 @@ package com.LucasJ.GameProject.Game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.LucasJ.GameProject.Game.Entity.DynamicEntity;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 
 public class GameUpdate {
 
@@ -14,8 +14,7 @@ public class GameUpdate {
 	}
 	
 	public void tick(double deltaTime) {
-		DynamicEntity.activeDynamicEntities.forEach(e -> {
-			System.out.println(e.getLocation().toString());
+		DynamicEntity.activeEntities.forEach(e -> {
 			e.tick(deltaTime);
 		});
 	}
@@ -27,7 +26,7 @@ public class GameUpdate {
 	    g.setColor(Color.WHITE); // or any other background color you prefer
 	    g.fillRect(0, 0, game.resolution.toDimension().width, game.resolution.toDimension().height); 
 		
-        DynamicEntity.activeDynamicEntities.forEach(e -> {
+        DynamicEntity.activeEntities.forEach(e -> {
         	e.render(g);
         });
 

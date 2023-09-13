@@ -1,9 +1,10 @@
-package com.LucasJ.GameProject.Game.Entity;
+package com.LucasJ.GameProject.Game.Entity.Dynamic;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.LucasJ.GameProject.Game.Game;
+import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class DynamicEntity extends Entity {
@@ -30,9 +31,7 @@ public abstract class DynamicEntity extends Entity {
 		activeDynamicEntities.add(this);
 	}
 	
-	public void tick(double deltaTime) {
-		
-	}
+	public abstract void tick(double deltaTime);
 	
 	public void move(Vector2D movement) {
 		Vector2D newLocation = getLocation().add(movement).clamp(0, game.resolution.x - size.x, 0, game.resolution.y - size.y);

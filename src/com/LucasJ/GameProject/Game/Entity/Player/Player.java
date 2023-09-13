@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.InputHandler;
-import com.LucasJ.GameProject.Game.Entity.DynamicEntity;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Player extends DynamicEntity{
