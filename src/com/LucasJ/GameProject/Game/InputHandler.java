@@ -24,13 +24,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	
     @Override
     public void keyTyped(KeyEvent e) {
-		System.out.println(W + " " + A + " " + S + " " + D);
         // Handle key typed event
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-		System.out.println(W + " " + A + " " + S + " " + D);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W: W = true; break;
             case KeyEvent.VK_A: A = true; break;
@@ -41,7 +39,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     @Override
     public void keyReleased(KeyEvent e) {
-		System.out.println(W + " " + A + " " + S + " " + D);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W: W = false; break;
             case KeyEvent.VK_A: A = false; break;

@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.LucasJ.GameProject.Game.Game;
+import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class DynamicEntity extends Entity {
 	
 	public static List<DynamicEntity> activeDynamicEntities = new ArrayList<>();
 
-	private int health;
-	private int maxHealth;
+	protected int health;
+	protected int maxHealth;
 	
-	private float movementSpeed;
+	protected float movementSpeed;
 	
 	public DynamicEntity(Game game, int health, int maxHealth, int movementSpeed) {
 		super(game);
@@ -31,6 +32,10 @@ public abstract class DynamicEntity extends Entity {
 	
 	public void tick(double deltaTime) {
 		
+	}
+	
+	public void move(Vector2D movement) {
+		setLocation(getLocation().add(movement));
 	}
 
 	public int getHealth() {
