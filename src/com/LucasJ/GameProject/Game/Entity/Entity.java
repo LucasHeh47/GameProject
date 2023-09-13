@@ -12,11 +12,8 @@ public abstract class Entity {
 	
 	protected Game game;
 	
-<<<<<<< Updated upstream
-=======
 	public List<EntityTags> tags;
 	
->>>>>>> Stashed changes
 	protected Vector2D location;
 	protected Vector2D size;
 	
