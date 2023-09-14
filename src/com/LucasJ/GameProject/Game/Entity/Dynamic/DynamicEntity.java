@@ -31,11 +31,17 @@ public abstract class DynamicEntity extends Entity {
 		activeDynamicEntities.add(this);
 	}
 	
-	public abstract void tick(double deltaTime);
+	public void tick(double deltaTime) {
+		super.tick(deltaTime);
+	}
 	
 	public void move(Vector2D movement) {
 		Vector2D newLocation = getLocation().add(movement).clamp(0, game.resolution.x - size.x, 0, game.resolution.y - size.y);
 		setLocation(newLocation);
+	}
+	
+	public void takeDamage(int damage) {
+		setHealth(getHealth()-damage);
 	}
 
 	public int getHealth() {

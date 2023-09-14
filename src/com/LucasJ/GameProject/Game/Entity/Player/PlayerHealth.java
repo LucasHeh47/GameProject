@@ -35,7 +35,7 @@ public class PlayerHealth {
 				barLocation.toDimension().height, 
 				barSize.toDimension().width, 
 				barSize.toDimension().height);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.drawRect(
 				barLocation.toDimension().width, 
 				barLocation.toDimension().height, 
@@ -43,10 +43,10 @@ public class PlayerHealth {
 				barSize.toDimension().height);
 		g.setColor(Color.RED);
 		g.fillRect(
-				barLocation.toDimension().width, 
-				barLocation.toDimension().height, 
-				mapHealth(player.getHealth()), 
-				barSize.toDimension().height);
+				barLocation.toDimension().width+1, 
+				barLocation.toDimension().height+1, 
+				mapHealth(player.getHealth())-1, 
+				barSize.toDimension().height-1);
 	}
 	
 	// Takes in health and gives a new width for bar

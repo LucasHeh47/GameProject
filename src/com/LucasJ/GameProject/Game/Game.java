@@ -51,8 +51,8 @@ public class Game implements Runnable {
         this.setGameState(GameState.GAME);
         
         Player player = new Player(this);
-        player.setHealth(700)
-	        .setMaxHealth(1000)
+        player.setHealth(30)
+	        .setMaxHealth(100)
 	        .setMovementSpeed(10)
 	        .setSize(new Vector2D(30, 30))
 	        .setLocation(new Vector2D(0, 0))

@@ -14,18 +14,23 @@ public class GameUpdate {
 	}
 	
 	public void tick(double deltaTime) {
-		DynamicEntity.activeEntities.forEach(e -> {
-			e.tick(deltaTime);
-		});
+		if(game.getGameState() == GameState.GAME)  { // Game
+			DynamicEntity.activeEntities.forEach(e -> {
+				e.tick(deltaTime);
+			});
+		}
 	}
 	
 	public void render() {
 		Graphics g = game.getBufferStrategy().getDrawGraphics();
 
 		// Clear the screen
-	    g.setColor(Color.WHITE); // or any other background color you prefer
+	    g.setColor(Color.black); // or any other background color you prefer
 	    g.fillRect(0, 0, game.resolution.toDimension().width, game.resolution.toDimension().height); 
 		
+	    //default color
+	    g.setColor(Color.white);
+	    
         DynamicEntity.activeEntities.forEach(e -> {
         	e.render(g);
         });

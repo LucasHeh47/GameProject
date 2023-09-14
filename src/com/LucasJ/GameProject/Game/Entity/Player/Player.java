@@ -16,15 +16,18 @@ public class Player extends DynamicEntity{
 	
 	private PlayerHealth playerHealth;
 	
+	public int playerDamage;
+	
 	public Player(Game game) {
 		super(game);
 		input = this.game.getInputHandler();
+		playerDamage = 10;
 		playerHealth = new PlayerHealth(game, this);
 		
 	}
 	
-	@Override
 	public void tick(double deltaTime) {
+		super.tick(deltaTime);
 		Vector2D movement = new Vector2D(0, 0);
 
 	    if(input.W) movement = movement.add(new Vector2D(0, this.getMovementSpeed() * deltaTime * -1));
