@@ -2,8 +2,9 @@ package com.LucasJ.GameProject.Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
-import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
+import com.LucasJ.GameProject.Game.Entity.Entity;
 
 public class GameUpdate {
 
@@ -14,14 +15,6 @@ public class GameUpdate {
 	}
 	
 	public void tick(double deltaTime) {
-		if(game.getGameState() == GameState.GAME)  { // Game
-			DynamicEntity.activeEntities.forEach(e -> {
-				e.tick(deltaTime);
-			});
-		}
-	}
-	
-	public void render() {
 		Graphics g = game.getBufferStrategy().getDrawGraphics();
 
 		// Clear the screen
@@ -30,13 +23,15 @@ public class GameUpdate {
 		
 	    //default color
 	    g.setColor(Color.white);
-	    
-        DynamicEntity.activeEntities.forEach(e -> {
-        	e.render(g);
-        });
-
-        // Dispose the graphics and show the buffer
-        g.dispose();
+		
+		if(game.getGameState() == GameState.GAME)  { // Game
+			for (Entity entity : new ArrayList<>(Entity.activeEntities)) {
+				entity.tick(deltaTime);
+				entity.render(g);
+			}
+		}
+		
+		g.dispose();
         game.getBufferStrategy().show();
 	}
 	

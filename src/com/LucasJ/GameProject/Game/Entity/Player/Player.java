@@ -3,6 +3,7 @@ package com.LucasJ.GameProject.Game.Entity.Player;
 import java.awt.Graphics;
 
 import com.LucasJ.GameProject.Game.Game;
+import com.LucasJ.GameProject.Game.GameState;
 import com.LucasJ.GameProject.Game.InputHandler;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 import com.LucasJ.GameProject.Math.Vector2D;
@@ -15,19 +16,31 @@ public class Player extends DynamicEntity{
 	InputHandler input;
 	
 	private PlayerHealth playerHealth;
+	private PlayerAttack playerAttack;
 	
+    private double timeSinceLastAttack = 0.0;
 	public int playerDamage;
+	public double playerAttackSpeed;
+	public double playerProjectileSpeed;
 	
 	public Player(Game game) {
 		super(game);
 		input = this.game.getInputHandler();
-		playerDamage = 10;
+		playerDamage = 50;
+		playerProjectileSpeed = 1000;
+		playerAttackSpeed = 10;
 		playerHealth = new PlayerHealth(game, this);
-		
+		playerAttack = new PlayerAttack(game, this);
 	}
 	
 	public void tick(double deltaTime) {
 		super.tick(deltaTime);
+		timeSinceLastAttack += deltaTime;
+//		Can player attack
+		if (input.LM && game.getGameState() == GameState.GAME) {
+			this.attemptToAttack(input.getMouseLocation());
+		}
+		
 		Vector2D movement = new Vector2D(0, 0);
 
 	    if(input.W) movement = movement.add(new Vector2D(0, this.getMovementSpeed() * deltaTime * -1));
@@ -49,6 +62,13 @@ public class Player extends DynamicEntity{
 				(int)size.x, (int)size.y);
 		
 		playerHealth.render(g);
+	}
+	
+	public void attemptToAttack(Vector2D mouseLocation) {
+		if (timeSinceLastAttack >= playerAttackSpeed) {
+            playerAttack.attack(mouseLocation);
+            timeSinceLastAttack = 0.0;
+        }
 	}
 	
 	public boolean isSprinting() {

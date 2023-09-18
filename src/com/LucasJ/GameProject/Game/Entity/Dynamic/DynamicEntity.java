@@ -56,6 +56,11 @@ public abstract class DynamicEntity extends Entity {
 	public int getMaxHealth() {
 		return maxHealth;
 	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+		activeDynamicEntities.remove(this);
+	}
 
 	public DynamicEntity setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;

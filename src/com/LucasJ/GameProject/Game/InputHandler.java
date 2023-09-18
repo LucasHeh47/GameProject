@@ -13,7 +13,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private Vector2D mouseLocation;
 	private Game game;
 	
-	public boolean W, A, S, D;
+	public boolean W, A, S, D, LM;
 	
 	public InputHandler(Game game) {
 		this.game = game;
@@ -52,18 +52,20 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Handle mouse clicked event
-        System.out.println("Mouse clicked at: " + e.getX() + ", " + e.getY());
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // Handle mouse pressed event
+        if (e.getButton() == 1) {
+        	LM = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // Handle mouse released event
+    	if (e.getButton() == 1) {
+        	LM = false;
+        }
     }
 
     @Override
@@ -78,7 +80,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.mouseLocation.x = e.getX();
+		this.mouseLocation.y = e.getY();
 		
 	}
 
@@ -86,5 +89,9 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public void mouseMoved(MouseEvent e) {
 		this.mouseLocation.x = e.getX();
 		this.mouseLocation.y = e.getY();
+	}
+
+	public Vector2D getMouseLocation() {
+		return mouseLocation;
 	}
 }

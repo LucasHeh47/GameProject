@@ -67,6 +67,10 @@ public abstract class Entity {
 				(int)size.x, (int)size.y);
 	}
 	
+	public void onDestroy() {
+		activeEntities.remove(this);
+	}
+	
 	public Entity addTag(EntityTags tag) {
 		this.tags.add(tag);
 		return this;

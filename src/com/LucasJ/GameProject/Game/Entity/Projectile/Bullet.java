@@ -4,6 +4,7 @@ import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.EntityTags;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.Enemy;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Bullet extends Projectile{
@@ -21,10 +22,14 @@ public class Bullet extends Projectile{
 	
 	private void checkCollisions() {
         this.collisions.forEach(x -> {
-            if(x instanceof DynamicEntity)
+            if(x instanceof Enemy)
                 x.tags.forEach(tag -> {
                     if(tag == EntityTags.Enemy) {
                         ((DynamicEntity) x).takeDamage(damage);
+                        if (((DynamicEntity) x).getHealth() <= 0) {
+                        	((Enemy) x).onDeath();
+                        }
+                        System.out.println("Damaged" + ((DynamicEntity) x).getHealth());
                         onDestroy();
                     }
                 });
