@@ -62,6 +62,12 @@ public class Vector2D {
     public Dimension toDimension() {
         return new Dimension((int) x, (int) y);
     }
+    
+    public Vector2D clamp(double minX, double maxX, double minY, double maxY) {
+        this.x = MathUtils.clamp(this.x, minX, maxX);
+        this.y = MathUtils.clamp(this.y, minY, maxY);
+        return this;
+    }
 
     @Override
     public String toString() {

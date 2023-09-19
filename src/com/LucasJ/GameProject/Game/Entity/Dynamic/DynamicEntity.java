@@ -1,9 +1,11 @@
-package com.LucasJ.GameProject.Game.Entity;
+package com.LucasJ.GameProject.Game.Entity.Dynamic;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.LucasJ.GameProject.Game.Game;
+import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class DynamicEntity extends Entity {
@@ -31,11 +33,20 @@ public abstract class DynamicEntity extends Entity {
 	}
 	
 	public void tick(double deltaTime) {
-		
+		super.tick(deltaTime);
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
 	}
 	
 	public void move(Vector2D movement) {
-		setLocation(getLocation().add(movement));
+		Vector2D newLocation = getLocation().add(movement).clamp(0, game.resolution.x - size.x, 0, game.resolution.y - size.y);
+		setLocation(newLocation);
+	}
+	
+	public void takeDamage(int damage) {
+		setHealth(getHealth()-damage);
 	}
 
 	public int getHealth() {
@@ -49,6 +60,11 @@ public abstract class DynamicEntity extends Entity {
 
 	public int getMaxHealth() {
 		return maxHealth;
+	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+		activeDynamicEntities.remove(this);
 	}
 
 	public DynamicEntity setMaxHealth(int maxHealth) {

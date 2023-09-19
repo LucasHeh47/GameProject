@@ -10,7 +10,11 @@ import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class Entity {
 	
+	public static List<Entity> activeEntities = new ArrayList<>();
+	
 	protected Game game;
+	
+	public List<Entity> collisions;
 	
 	public List<EntityTags> tags;
 	
@@ -24,6 +28,8 @@ public abstract class Entity {
 		this.location = location;
 		this.size = size;
 		this.game = game;
+		collisions = new ArrayList<>();
+		activeEntities.add(this);
 	}
 	
 	public Entity(Game game) { 
@@ -31,12 +37,38 @@ public abstract class Entity {
 		this.location = new Vector2D(0, 0);
 		this.size = new Vector2D(0, 0);
 		this.game = game;
+		collisions = new ArrayList<>();
+		activeEntities.add(this);
+	}
+	
+	public void tick(double deltaTime) {
+		// Clear the existing collisions for the current frame
+	    collisions.clear();
+
+	    for (Entity otherEntity : activeEntities) {
+	        // Avoid self-collision check
+	        if (this == otherEntity) continue;
+
+	        // Check for collision using AABB
+	        if (location.x < otherEntity.location.x + otherEntity.size.x &&
+	            location.x + size.x > otherEntity.location.x &&
+	            location.y < otherEntity.location.y + otherEntity.size.y &&
+	            location.y + size.y > otherEntity.location.y) {
+	            
+	            // There is a collision
+	            collisions.add(otherEntity);
+	        }
+	    }
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.drawRect((int)location.x, (int)location.y, 
+		g.fillRect((int)location.x, (int)location.y, 
 				(int)size.x, (int)size.y);
+	}
+	
+	public void onDestroy() {
+		activeEntities.remove(this);
 	}
 	
 	public Entity addTag(EntityTags tag) {
@@ -62,8 +94,9 @@ public abstract class Entity {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public Entity setColor(Color color) {
 		this.color = color;
+		return this;
 	}
 	
 	

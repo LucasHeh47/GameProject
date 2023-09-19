@@ -6,6 +6,8 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import com.LucasJ.GameProject.Game.Entity.EntityTags;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.Enemy;
 import com.LucasJ.GameProject.Game.Entity.Player.Player;
 import com.LucasJ.GameProject.Math.Vector2D;
 import com.LucasJ.GameProject.Settings.GraphicsSettings;
@@ -29,7 +31,9 @@ public class Game implements Runnable {
     
 // -----------------------
     
-    private GameState gameState;
+    private Player player;
+    
+	private GameState gameState;
     
     private InputHandler inputHandler;
     
@@ -38,7 +42,7 @@ public class Game implements Runnable {
 	public Game(Vector2D resolution) {
 		this.resolution = resolution;
 		frame = new JFrame("Game Window");
-		frame.setSize(resolution.toDimension());
+		frame.setSize((int) resolution.x, (int) resolution.y);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         
@@ -48,22 +52,37 @@ public class Game implements Runnable {
         
         this.setGameState(GameState.GAME);
         
-        Player player = new Player(this);
-        player.setHealth(100)
+        player = new Player(this);
+        player.setHealth(70)
 	        .setMaxHealth(100)
 	        .setMovementSpeed(10)
-	        .setSize(new Vector2D(50, 25))
+	        .setSize(new Vector2D(30, 30))
 	        .setLocation(new Vector2D(0, 0))
-	        .setColor(Color.BLUE);
+	        .setColor(Color.BLUE)
+	        .addTag(EntityTags.Player);
+        
+        Enemy zombie = new Enemy(this);
+        ((Enemy) zombie.setTarget(player)
+        		.setDamage(50)
+        		.setMaxHealth(1000)
+        		.setHealth(1000)
+        		.addTag(EntityTags.Enemy)
+        		.setLocation(new Vector2D(500, 500))
+        		.setSize(new Vector2D(40, 40)))
+        		.setMovementSpeed(3)
+        		.setColor(Color.GREEN);
         
         canvas = new Canvas();
 
         canvas.addKeyListener(inputHandler);
         canvas.addMouseListener(inputHandler);
         canvas.addMouseMotionListener(inputHandler);
+        frame.getContentPane().add(canvas);
+        canvas.setPreferredSize(resolution.toDimension());
+        frame.pack();
         
-        frame.add(canvas);
         frame.setVisible(true);
+        canvas.requestFocus();
 
         canvas.createBufferStrategy(2);
         setBufferStrategy(canvas.getBufferStrategy());
@@ -100,13 +119,14 @@ public class Game implements Runnable {
 			
 			// Tick
 			gameUpdate.tick(delta);
-			// Render
-			gameUpdate.render();
 			
-			try {
-				Thread.sleep((lastTickTime - System.nanoTime() + this.OPTIMAL_TIME) / 1000000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			long sleepTime = (lastTickTime - System.nanoTime() + this.OPTIMAL_TIME) / 1000000;
+			if (sleepTime > 0) {
+			    try {
+			        Thread.sleep(sleepTime);
+			    } catch (InterruptedException e) {
+			        e.printStackTrace();
+			    }
 			}
 		}
 		
@@ -130,6 +150,9 @@ public class Game implements Runnable {
 	}
 	public InputHandler getInputHandler() {
 		return this.inputHandler;
+	}
+	public Player getPlayer() {
+		return player;
 	}
 
 }
