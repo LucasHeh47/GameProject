@@ -1,5 +1,6 @@
 package com.LucasJ.GameProject.Game.Entity.Dynamic;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public abstract class DynamicEntity extends Entity {
 	
 	public void tick(double deltaTime) {
 		super.tick(deltaTime);
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
 	}
 	
 	public void move(Vector2D movement) {

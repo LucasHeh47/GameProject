@@ -63,7 +63,7 @@ public abstract class Entity {
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.drawRect((int)location.x, (int)location.y, 
+		g.fillRect((int)location.x, (int)location.y, 
 				(int)size.x, (int)size.y);
 	}
 	

@@ -53,7 +53,7 @@ public class Game implements Runnable {
         this.setGameState(GameState.GAME);
         
         player = new Player(this);
-        player.setHealth(30)
+        player.setHealth(70)
 	        .setMaxHealth(100)
 	        .setMovementSpeed(10)
 	        .setSize(new Vector2D(30, 30))
@@ -63,10 +63,12 @@ public class Game implements Runnable {
         
         Enemy zombie = new Enemy(this);
         ((Enemy) zombie.setTarget(player)
-        		.setHealth(100)
+        		.setDamage(50)
+        		.setMaxHealth(1000)
+        		.setHealth(1000)
         		.addTag(EntityTags.Enemy)
         		.setLocation(new Vector2D(500, 500))
-        		.setSize(new Vector2D(20, 20)))
+        		.setSize(new Vector2D(40, 40)))
         		.setMovementSpeed(3)
         		.setColor(Color.GREEN);
         

@@ -40,7 +40,7 @@ public abstract class Projectile extends Entity {
 	
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.drawOval(
+		g.fillOval(
 				location.toDimension().width, 
 				location.toDimension().height, 
 				size.toDimension().width, 
