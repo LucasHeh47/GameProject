@@ -16,6 +16,8 @@ public class GameUpdate {
 	
 	public void tick(double deltaTime) {
 		Graphics g = game.getBufferStrategy().getDrawGraphics();
+		
+		System.out.println(Entity.activeEntities.size());
 
 		// Clear the screen
 	    g.setColor(Color.black); // or any other background color you prefer
@@ -29,6 +31,8 @@ public class GameUpdate {
 				entity.tick(deltaTime);
 				entity.render(g);
 			}
+		} else if(game.getGameState() == GameState.GAME_OVER) {
+			game.getGameOverMenu().render(g);
 		}
 		
 		g.dispose();

@@ -7,8 +7,9 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import com.LucasJ.GameProject.Game.Entity.EntityTags;
-import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.Enemy;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.EnemySpawner;
 import com.LucasJ.GameProject.Game.Entity.Player.Player;
+import com.LucasJ.GameProject.Game.Menus.GameOver;
 import com.LucasJ.GameProject.Math.Vector2D;
 import com.LucasJ.GameProject.Settings.GraphicsSettings;
 
@@ -38,6 +39,10 @@ public class Game implements Runnable {
     private InputHandler inputHandler;
     
     private GameUpdate gameUpdate;
+    
+    private EnemySpawner enemySpawner;
+    
+    private GameOver gameOverMenu;
 
 	public Game(Vector2D resolution) {
 		this.resolution = resolution;
@@ -50,27 +55,17 @@ public class Game implements Runnable {
         
         this.gameUpdate = new GameUpdate(this);
         
-        this.setGameState(GameState.GAME);
+        this.setGameState(GameState.GAME_OVER);
         
         player = new Player(this);
-        player.setHealth(70)
-	        .setMaxHealth(100)
-	        .setMovementSpeed(10)
+        player.setMaxHealth(100)
+	        .setMovementSpeed(8)
 	        .setSize(new Vector2D(30, 30))
 	        .setLocation(new Vector2D(0, 0))
 	        .setColor(Color.BLUE)
 	        .addTag(EntityTags.Player);
         
-        Enemy zombie = new Enemy(this);
-        ((Enemy) zombie.setTarget(player)
-        		.setDamage(50)
-        		.setMaxHealth(1000)
-        		.setHealth(1000)
-        		.addTag(EntityTags.Enemy)
-        		.setLocation(new Vector2D(500, 500))
-        		.setSize(new Vector2D(40, 40)))
-        		.setMovementSpeed(3)
-        		.setColor(Color.GREEN);
+        enemySpawner = new EnemySpawner(this);
         
         canvas = new Canvas();
 
@@ -86,6 +81,12 @@ public class Game implements Runnable {
 
         canvas.createBufferStrategy(2);
         setBufferStrategy(canvas.getBufferStrategy());
+        
+        instantiateMenus();
+	}
+	
+	public void instantiateMenus() {
+		gameOverMenu = new GameOver(this);
 	}
 	
 	public void start() {
@@ -153,6 +154,14 @@ public class Game implements Runnable {
 	}
 	public Player getPlayer() {
 		return player;
+	}
+
+	public EnemySpawner getEnemySpawner() {
+		return enemySpawner;
+	}
+
+	public GameOver getGameOverMenu() {
+		return gameOverMenu;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.GameState;
 import com.LucasJ.GameProject.Game.InputHandler;
+import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 import com.LucasJ.GameProject.Math.Vector2D;
 
@@ -27,7 +28,7 @@ public class Player extends DynamicEntity{
 		super(game);
 		input = this.game.getInputHandler();
 		playerDamage = 50;
-		playerProjectileSpeed = 1000;
+		playerProjectileSpeed = 2000;
 		playerAttackSpeed = 10;
 		playerHealth = new PlayerHealth(game, this);
 		playerAttack = new PlayerAttack(game, this);
@@ -69,6 +70,13 @@ public class Player extends DynamicEntity{
             playerAttack.attack(mouseLocation);
             timeSinceLastAttack = 0.0;
         }
+	}
+	
+	public void onDeath() {
+		game.setGameState(GameState.GAME_OVER);
+		game.getEnemySpawner().stopSpawning();
+		Entity.clearEntities();
+		this.onDestroy();
 	}
 	
 	public boolean isSprinting() {

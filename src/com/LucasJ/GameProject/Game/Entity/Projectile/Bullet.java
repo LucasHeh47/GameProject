@@ -26,9 +26,6 @@ public class Bullet extends Projectile{
                 x.tags.forEach(tag -> {
                     if(tag == EntityTags.Enemy) {
                         ((DynamicEntity) x).takeDamage(damage);
-                        if (((DynamicEntity) x).getHealth() <= 0) {
-                        	((Enemy) x).onDeath();
-                        }
                         System.out.println("Damaged" + ((DynamicEntity) x).getHealth());
                         onDestroy();
                     }

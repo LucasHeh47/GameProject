@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.LucasJ.GameProject.Game.Game;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
+import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.Enemy;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class Entity {
@@ -22,6 +24,12 @@ public abstract class Entity {
 	protected Vector2D size;
 	
 	protected Color color;
+	
+	public static void clearEntities() {
+		activeEntities.clear();
+		DynamicEntity.activeDynamicEntities.clear();
+		Enemy.enemiesActive.clear();
+	}
 	
 	public Entity(Game game, Vector2D location, Vector2D size) { 
 		tags = new ArrayList<>();

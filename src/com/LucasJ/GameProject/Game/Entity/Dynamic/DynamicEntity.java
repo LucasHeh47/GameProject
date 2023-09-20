@@ -47,6 +47,7 @@ public abstract class DynamicEntity extends Entity {
 	
 	public void takeDamage(int damage) {
 		setHealth(getHealth()-damage);
+		if(getHealth() <= 0) onDeath();
 	}
 
 	public int getHealth() {
@@ -62,6 +63,8 @@ public abstract class DynamicEntity extends Entity {
 		return maxHealth;
 	}
 	
+	public abstract void onDeath();
+	
 	public void onDestroy() {
 		super.onDestroy();
 		activeDynamicEntities.remove(this);
@@ -69,6 +72,7 @@ public abstract class DynamicEntity extends Entity {
 
 	public DynamicEntity setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
+		this.health = maxHealth;
 		return this;
 	}
 
