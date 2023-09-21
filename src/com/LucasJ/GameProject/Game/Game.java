@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import com.LucasJ.GameProject.Game.Entity.EntityTags;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.EnemySpawner;
 import com.LucasJ.GameProject.Game.Entity.Player.Player;
-import com.LucasJ.GameProject.Game.Menus.GameOver;
+import com.LucasJ.GameProject.Game.Menus.Menus;
 import com.LucasJ.GameProject.Math.Vector2D;
 import com.LucasJ.GameProject.Settings.GraphicsSettings;
 
@@ -42,7 +42,7 @@ public class Game implements Runnable {
     
     private EnemySpawner enemySpawner;
     
-    private GameOver gameOverMenu;
+    private Menus menus;
 
 	public Game(Vector2D resolution) {
 		this.resolution = resolution;
@@ -81,12 +81,8 @@ public class Game implements Runnable {
 
         canvas.createBufferStrategy(2);
         setBufferStrategy(canvas.getBufferStrategy());
-        
-        instantiateMenus();
-	}
-	
-	public void instantiateMenus() {
-		gameOverMenu = new GameOver(this);
+
+		menus = new Menus(this);
 	}
 	
 	public void start() {
@@ -160,8 +156,8 @@ public class Game implements Runnable {
 		return enemySpawner;
 	}
 
-	public GameOver getGameOverMenu() {
-		return gameOverMenu;
+	public Menus getMenus() {
+		return menus;
 	}
 
 }

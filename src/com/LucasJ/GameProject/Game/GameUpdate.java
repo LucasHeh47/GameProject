@@ -32,7 +32,9 @@ public class GameUpdate {
 				entity.render(g);
 			}
 		} else if(game.getGameState() == GameState.GAME_OVER) {
-			game.getGameOverMenu().render(g);
+			game.getMenus().renderGameOver(g);
+		} else if(game.getGameState() == GameState.MAIN_MENU) {
+			game.getMenus().renderMainMenu(g);
 		}
 		
 		g.dispose();
