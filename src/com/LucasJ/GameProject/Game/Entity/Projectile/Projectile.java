@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import com.LucasJ.GameProject.Game.Game;
 import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.EntityTags;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleSystem;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public abstract class Projectile extends Entity {
@@ -14,6 +15,8 @@ public abstract class Projectile extends Entity {
 	public int damage;
 	
 	public double timeAlive;
+	
+	public ParticleSystem particles;
 	
 	private double lastTick = 0;
 	
@@ -32,10 +35,18 @@ public abstract class Projectile extends Entity {
 	    timeAlive += currentTick - lastTick;
 		setLocation(location.add(momentum.multiply(0.01).multiply(deltaTime)));
 		
+		if(particles != null) {
+			particles.setLocation(location);
+		}
+		
 		if(location.x <= 0 || location.x >= game.resolution.x) this.onDestroy();
 		if(location.y <= 0 || location.y >= game.resolution.y) this.onDestroy();
 		
 	    lastTick = currentTick;
+	}
+	
+	public void addParticles(ParticleSystem system) {
+		this.particles = system;
 	}
 	
 	public void render(Graphics g) {

@@ -1,5 +1,6 @@
 package com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 import com.LucasJ.GameProject.Game.Entity.Player.Player;
 import com.LucasJ.GameProject.Game.Entity.Tools.HealthBar;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleShape;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleSystem;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Enemy extends DynamicEntity {
@@ -71,6 +74,16 @@ public class Enemy extends DynamicEntity {
 		
 	}
 	public void onDeath() {
+		ParticleSystem particles = new ParticleSystem.Builder(game)
+				.setColor(new Color[] {this.color})
+				.setDensity(10)
+				.setInitialLocation(this.getLocation())
+				.setSize(new int[] {3, 10})
+				.setSpeed(8)
+				.setTime(7)
+				.setLength(10)
+				.setShape(new ParticleShape[] {ParticleShape.CIRCLE})
+				.build();
 		super.onDestroy();
 		enemiesActive.remove(this);
 	}

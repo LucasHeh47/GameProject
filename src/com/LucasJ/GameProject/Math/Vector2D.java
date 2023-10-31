@@ -68,6 +68,10 @@ public class Vector2D {
         this.y = MathUtils.clamp(this.y, minY, maxY);
         return this;
     }
+    
+    public Vector2D copy() {
+    	return new Vector2D(this.x, this.y);
+    }
 
     @Override
     public String toString() {

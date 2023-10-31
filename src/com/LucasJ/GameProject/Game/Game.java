@@ -55,17 +55,19 @@ public class Game implements Runnable {
         
         this.gameUpdate = new GameUpdate(this);
         
-        this.setGameState(GameState.GAME_OVER);
+        this.setGameState(GameState.GAME);
         
         player = new Player(this);
         player.setMaxHealth(100)
 	        .setMovementSpeed(8)
-	        .setSize(new Vector2D(30, 30))
+	        .setSize(new Vector2D(50, 50))
 	        .setLocation(new Vector2D(0, 0))
 	        .setColor(Color.BLUE)
 	        .addTag(EntityTags.Player);
         
         enemySpawner = new EnemySpawner(this);
+        
+        enemySpawner.startSpawning();
         
         canvas = new Canvas();
 

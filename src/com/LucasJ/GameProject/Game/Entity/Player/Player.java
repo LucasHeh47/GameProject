@@ -1,5 +1,6 @@
 package com.LucasJ.GameProject.Game.Entity.Player;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import com.LucasJ.GameProject.Game.Game;
@@ -7,6 +8,8 @@ import com.LucasJ.GameProject.Game.GameState;
 import com.LucasJ.GameProject.Game.InputHandler;
 import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleShape;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleSystem;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Player extends DynamicEntity{
@@ -23,6 +26,8 @@ public class Player extends DynamicEntity{
 	public int playerDamage;
 	public double playerAttackSpeed;
 	public double playerProjectileSpeed;
+	
+	public boolean isAiming = false;
 	
 	public Player(Game game) {
 		super(game);
@@ -41,6 +46,7 @@ public class Player extends DynamicEntity{
 		if (input.LM && game.getGameState() == GameState.GAME) {
 			this.attemptToAttack(input.getMouseLocation());
 		}
+		isAiming = input.RM;
 		
 		Vector2D movement = new Vector2D(0, 0);
 

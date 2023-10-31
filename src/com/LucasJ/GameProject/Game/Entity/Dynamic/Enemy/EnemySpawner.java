@@ -21,7 +21,7 @@ public class EnemySpawner {
         this.game = game;
     }
 
-    private void startSpawning() {
+    public void startSpawning() {
         if (scheduler != null && !scheduler.isShutdown()) {
             scheduler.shutdown();
         }

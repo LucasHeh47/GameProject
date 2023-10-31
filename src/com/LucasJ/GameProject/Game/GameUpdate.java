@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import com.LucasJ.GameProject.Game.Entity.Entity;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleSystem;
 
 public class GameUpdate {
 
@@ -16,8 +17,6 @@ public class GameUpdate {
 	
 	public void tick(double deltaTime) {
 		Graphics g = game.getBufferStrategy().getDrawGraphics();
-		
-		System.out.println(Entity.activeEntities.size());
 
 		// Clear the screen
 	    g.setColor(Color.black); // or any other background color you prefer
@@ -35,6 +34,10 @@ public class GameUpdate {
 			game.getMenus().renderGameOver(g);
 		} else if(game.getGameState() == GameState.MAIN_MENU) {
 			game.getMenus().renderMainMenu(g);
+		}
+		
+		for(ParticleSystem system : ParticleSystem.activeParticleSystems) {
+			system.tick(deltaTime, g);
 		}
 		
 		g.dispose();

@@ -5,6 +5,7 @@ import com.LucasJ.GameProject.Game.Entity.Entity;
 import com.LucasJ.GameProject.Game.Entity.EntityTags;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.DynamicEntity;
 import com.LucasJ.GameProject.Game.Entity.Dynamic.Enemy.Enemy;
+import com.LucasJ.GameProject.Game.ParticleSystem.ParticleSystem;
 import com.LucasJ.GameProject.Math.Vector2D;
 
 public class Bullet extends Projectile{
@@ -34,6 +35,7 @@ public class Bullet extends Projectile{
     }
 	
 	public void onDestroy() {
+		if(this.particles != null) ParticleSystem.activeParticleSystems.remove(this.particles);
 		Entity.activeEntities.remove(this);
 	}
 

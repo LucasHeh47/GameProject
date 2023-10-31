@@ -13,7 +13,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private Vector2D mouseLocation;
 	private Game game;
 	
-	public boolean W, A, S, D, LM;
+	public boolean W, A, S, D, LM, RM;
 	
 	public InputHandler(Game game) {
 		this.game = game;
@@ -59,12 +59,18 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
         if (e.getButton() == 1) {
         	LM = true;
         }
+        if (e.getButton() == 3) {
+        	RM = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
     	if (e.getButton() == 1) {
         	LM = false;
+        }
+        if (e.getButton() == 3) {
+        	RM = false;
         }
     }
 
