@@ -39,8 +39,6 @@ public class ParticleSystem {
         activeParticleSystems.add(this);
     }
     
-//    TO DO -> ADD TIMER FOR WHOLE SYSTEM AND REMOVE SYSTEM FROM STATIC LISTw
-    
     public void tick(double deltaTime, Graphics g) {
         if (startTime == -1) {
             startTime = System.currentTimeMillis() / 1000.0; // Convert milliseconds to seconds
@@ -139,6 +137,12 @@ public class ParticleSystem {
             return this;
         }
         
+/**
+ * Length - Time particle system will stay live |
+ * Set Length to -1 for never ending particles
+ * @param length
+ * @return
+ */
         public Builder setLength(double length) {
         	if(length == -1) {
         		particleSystem.length = -1;
